@@ -1,2 +1,2 @@
 # Vue2-app
-vue-cli
+vue
