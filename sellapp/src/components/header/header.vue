@@ -15,10 +15,17 @@
 					<span class="text">{{ seller.supports[0].description }}</span>
 				</div>
 			</div>
+			<div v-if="seller.supports" class="support-count">
+				<span class="text">{{ seller.supports.length }}个</span>
+				<i class="icon-keyboard_arrow_right"></i>
+			</div>
 		</div>
 		<div class="bulletin">
 			<span class="icon"></span><span class="text">{{ seller.bulletin }}</span>
 			<i class="icon-keyboard_arrow_right"></i>
+		</div>
+		<div class="background-img">
+			<img :src="seller.avatar" alt="背景" width="100%" height="100%">
 		</div>
 	</div>
 </template>
@@ -41,7 +48,9 @@
 @import '../../common/style/mixin.less';
 	#header {
 		background: rgba(7, 17, 27, .5);
+		position: relative;
 		.merchant {
+			position: relative;
 			padding: 24px 12px 18px;
 			font-size: 0;
 			.pic {
@@ -105,13 +114,34 @@
 						color: rgb(255, 255, 255);
 					}
 				}
+			}
+			.support-count {
+				position: absolute;
+				right: 12px;
+				bottom: 10px;
+				height: 24px;
+				padding: 0 8px;
+				background: rgba(0, 0, 0, .2);
+				border-radius: 14px;
+				.text {
+					font-size: 10px;
+					color: rgb(255, 255, 255);
+					line-height: 25px;
+				}
+				.icon-keyboard_arrow_right {
+					display: inline-block;
+					margin-left: 2px;
+					font-size: 10px;
+					color: #fff;
+				}
 			}	
 		}
 		.bulletin {
 			position: relative;
-			padding: 0 22px 0 12px;
+			padding: 0 50px 0 12px;
 			overflow: hidden;
 			text-overflow: ellipsis;
+			white-space: nowrap;
 			background: rgba(7, 17, 27, .2);
 			height: 28px;
 			line-height: 28px;
@@ -122,18 +152,14 @@
 				.bg-image('../../components/header/bulletin');
 				background-size: 22px 12px;
 				margin-top: 7px;
-				vertical-align: top;
 			}
 			.text {
 				display: inline-block;
 				font-size: 10px;
 				color: rgb(255, 255, 255);
 				line-height: 28px;
-				white-space: nowrap;
 				margin: 0 4px;
-				text-overflow: ellipsis;
-				max-width: 350px;
-				overflow: hidden;
+				vertical-align: top;
 			}
 			.icon-keyboard_arrow_right {
 				position: absolute;
@@ -141,6 +167,15 @@
 				right: 12px;
 				font-size: 10px;
 			}
+		}
+		.background-img {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: -1;
+			filter: blur(10px);
 		}
 	}
 </style>
