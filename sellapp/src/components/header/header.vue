@@ -15,31 +15,61 @@
 					<span class="text">{{ seller.supports[0].description }}</span>
 				</div>
 			</div>
-			<div v-if="seller.supports" class="support-count">
+			<div v-if="seller.supports" @click="showModal" class="support-count">
 				<span class="text">{{ seller.supports.length }}个</span>
 				<i class="icon-keyboard_arrow_right"></i>
 			</div>
 		</div>
-		<div class="bulletin">
+		<div class="bulletin" @click="showModal">
 			<span class="icon"></span><span class="text">{{ seller.bulletin }}</span>
 			<i class="icon-keyboard_arrow_right"></i>
 		</div>
 		<div class="background-img">
 			<img :src="seller.avatar" alt="背景" width="100%" height="100%">
 		</div>
+		<div v-show="modalShow" class="modal">
+			<div class="main clearfix">
+				<div class="detail-main">
+					<h1 class="name">{{ seller.name }}</h1>
+					<star :size="48" :score="seller.score"></star>
+					<div class="title">
+						<span class="text">优惠信息</span>
+					</div>
+				</div>
+			</div>
+			<div class="modal-close" @click="hideModal">
+				<i class="icon-close"></i>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script type="text/ecmascript-6">
-	
+	import star from '../star/star'
 	export default {
 		props: {
 			seller: {
 				type: Object
 			}
 		},
+		data() {
+			return {
+				modalShow: false
+			}
+		},
 		created() {
 			this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+		},
+		methods: {
+			showModal() {
+				this.modalShow = true
+			},
+			hideModal() {
+				this.modalShow = false
+			}
+		},
+		components: {
+			star
 		}
 	}
 </script>
@@ -49,6 +79,7 @@
 	#header {
 		background: rgba(7, 17, 27, .5);
 		position: relative;
+		overflow: hidden;
 		.merchant {
 			position: relative;
 			padding: 24px 12px 18px;
@@ -163,7 +194,7 @@
 			}
 			.icon-keyboard_arrow_right {
 				position: absolute;
-				top: 10px;
+				top: 8px;
 				right: 12px;
 				font-size: 10px;
 			}
@@ -176,6 +207,71 @@
 			height: 100%;
 			z-index: -1;
 			filter: blur(10px);
+		}
+		.modal {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;			
+			z-index: 2;
+			overflow: auto;
+			background: rgba(7, 17, 27, .8);
+			.main {
+				min-height: 100%;
+				width: 100%;
+				.detail-main {
+					margin-top: 64px;
+					padding-bottom: 64px;
+					.name {
+						color: #fff;
+						font-size: 16px;
+						font-weight: 700;
+						line-height: 16px;
+						text-align: center;
+					}
+					.star {
+						text-align: center;
+						margin-top: 16px;
+					}
+					.title {
+						display: flex;
+						width: 80%;
+						margin: 28px auto 24px auto;
+						.text {
+							padding: 0 12px;
+							font-size: 14px;
+							font-weight: 700;
+							color: #fff;
+						}
+						&::before {
+							display: inline-block;
+							content: '';
+							flex: 1;
+							position: relative;
+							top: -6px;
+							border-bottom: 1px solid rgba(255, 255, 255, .2);
+						}
+						&::after {
+							display: inline-block;
+							content: '';
+							flex: 1;
+							position: relative;
+							top: -6px;
+							border-bottom: 1px solid rgba(255, 255, 255, .2);
+						}
+					}	
+				}
+			}
+			.modal-close {
+				position: relative;
+				width: 32px;
+				height: 32px;
+				font-size: 32px;
+				clear: both;
+				margin: -64px auto 0 auto;
+				color: rgba(255, 255, 255, .5);
+			}
 		}
 	}
 </style>

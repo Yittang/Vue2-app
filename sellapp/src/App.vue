@@ -24,28 +24,28 @@ import header from './components/header/header'
 const ERR_OK = 0
 
 export default {
-  name: 'App',
-  data() {
-    return {
-      seller: {}
-    }
-  },
-  created() {
-    this.$axios.get('/api/seller')
-    .then(response => {
-      response = response.data
-      if(response.errno == ERR_OK) {
-        this.seller = response.data
+    name: 'App',
+    data() {
+      return {
+        seller: {}
       }
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  },
-  components: {
-    'v-header': header,
-  },
-}
+    },
+    created() {
+      this.$axios.get('/api/seller')
+      .then(response => {
+        response = response.data
+        if(response.errno == ERR_OK) {
+          this.seller = response.data
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
+    components: {
+      'v-header': header,
+    },
+  }
 </script>
 
 <style lang="less">
