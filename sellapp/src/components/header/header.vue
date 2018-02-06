@@ -27,20 +27,34 @@
 		<div class="background-img">
 			<img :src="seller.avatar" alt="背景" width="100%" height="100%">
 		</div>
-		<div v-show="modalShow" class="modal">
-			<div class="main clearfix">
-				<div class="detail-main">
-					<h1 class="name">{{ seller.name }}</h1>
-					<star :size="48" :score="seller.score"></star>
-					<div class="title">
-						<span class="text">优惠信息</span>
+		<transition name="fade">
+			<div v-show="modalShow" class="modal">
+				<div class="main clearfix">
+					<div class="detail-main">
+						<h1 class="name">{{ seller.name }}</h1>
+						<star :size="48" :score="seller.score"></star>
+						<div class="title">
+							<span class="text">优惠信息</span>
+						</div>
+						<ul v-if="seller.supports" class="supports">
+							<li class="support-item" v-for="(item,index) in seller.supports">
+								<span class="icon" :class="classMap[seller.supports[index].type]"></span>
+								<span class="text">{{seller.supports[index].description}}</span>
+							</li>
+						</ul>
+						<div class="title">
+							<span class="text">商家公告</span>
+						</div>
+						<div class="description">
+							<p>{{ seller.bulletin }}</p>
+						</div>
 					</div>
 				</div>
+				<div class="modal-close" @click="hideModal">
+					<i class="icon-close"></i>
+				</div>
 			</div>
-			<div class="modal-close" @click="hideModal">
-				<i class="icon-close"></i>
-			</div>
-		</div>
+		</transition>
 	</div>
 </template>
 
@@ -260,6 +274,56 @@
 							top: -6px;
 							border-bottom: 1px solid rgba(255, 255, 255, .2);
 						}
+					}
+					.supports {
+						width: 80%;
+						margin: 0 auto;
+						.support-item {
+							padding: 0 12px;
+							margin-bottom: 12px;
+							font-size: 0;
+							&:last-child {
+								margin-bottom: 0;
+							}
+							.icon {
+								display: inline-block;
+								width: 16px;
+								height: 16px;
+								vertical-align: top;
+								margin-right: 6px;
+								background-size: 16px;
+								&.decrease {
+									.bg-image('../../components/header/decrease_2');
+								}
+								&.discount {
+									.bg-image('../../components/header/discount_2');
+								}					
+								&.guarantee {
+									.bg-image('../../components/header/guarantee_2');
+								}					
+								&.invoice {
+									.bg-image('../../components/header/invoice_2');
+								}
+								&.special {
+									.bg-image('../../components/header/special_2');
+								}
+							}
+							.text {
+								font-size: 12px;
+								color: #fff;
+								line-height: 12px;
+							}
+						}	
+					}
+					.description {
+						width: 80%;
+						margin: 0 auto;
+						p {
+							padding: 0 12px;
+							font-size: 12px;
+							color: #fff;
+							line-height: 24px;
+						}
 					}	
 				}
 			}
@@ -273,5 +337,12 @@
 				color: rgba(255, 255, 255, .5);
 			}
 		}
+	}
+
+	.fade-enter-active, .fade-leave-active {
+	    transition: opacity .5s
+	}
+	.fade-enter, .fade-leave-to {
+	    opacity: 0
 	}
 </style>
