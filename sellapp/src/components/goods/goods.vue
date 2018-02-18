@@ -40,6 +40,7 @@
 <script type="ecmascript-6">
 import BScroll from 'better-scroll'
 import shopcart from '@/components/shopcart/shopcart.vue'
+	const response = require('../../common/data/goods.json');
 	const ERR_OK = 0
 
 	export default {
