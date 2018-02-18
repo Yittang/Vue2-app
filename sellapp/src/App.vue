@@ -31,16 +31,19 @@ export default {
       }
     },
     created() {
-      this.$axios.get('/api/seller')
-      .then(response => {
-        response = response.data
-        if(response.errno == ERR_OK) {
-          this.seller = response.data
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
+      // this.$axios.get('/api/seller')
+      // .then(response => {
+      //   response = response.data
+      //   if(response.errno == ERR_OK) {
+      //     this.seller = response.data
+      //   }
+      // })
+      // .catch(error => {
+      //   console.log(error)
+      // })
+      if (response.errno === ERR_OK) {
+        this.seller = Object.assign({}, this.seller, response.data)
+      }
     },
     components: {
       'v-header': header,

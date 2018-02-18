@@ -70,20 +70,27 @@ import shopcart from '@/components/shopcart/shopcart.vue'
 		created() {
 			this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
 
-			this.$axios.get('/api/goods')
-				.then(response => {
-					response = response.data
-					if(response.errno == ERR_OK) {
-						this.goods = response.data
-						this.$nextTick(() => {
-							this._initScroll()
-							this._calculateHeight()
-						})
-					}
-				})
-				.catch(error => {
-					console.log(error)
-			})
+			// this.$axios.get('/api/goods')
+			// 	.then(response => {
+			// 		response = response.data
+			// 		if(response.errno == ERR_OK) {
+			// 			this.goods = response.data
+			// 			this.$nextTick(() => {
+			// 				this._initScroll()
+			// 				this._calculateHeight()
+			// 			})
+			// 		}
+			// 	})
+			// 	.catch(error => {
+			// 		console.log(error)
+			// })
+			if (response.errno === ERR_OK) {
+        		this.goods = response.data;
+        		this.$nextTick(() => {
+		        this._initScroll()
+		        this._calculateHeight()
+        	})
+      }
 		},
 		methods: {
 			_initScroll() {
