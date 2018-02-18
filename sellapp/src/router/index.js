@@ -14,6 +14,10 @@ export default new Router({
 	mode: 'history', //为了去除路由跳转时url会加上‘#’号
 	routes: [
 		{
+			path:'/',
+			component: goods
+		},
+		{
 			path: '/goods',
 			name: 'goods',
 			component: goods 

@@ -211,6 +211,7 @@
 				top: 8px;
 				right: 12px;
 				font-size: 10px;
+				color: #fff;
 			}
 		}
 		.background-img {
@@ -228,7 +229,7 @@
 			left: 0;
 			width: 100%;
 			height: 100%;			
-			z-index: 2;
+			z-index: 60;
 			overflow: auto;
 			background: rgba(7, 17, 27, .8);
 			.main {
